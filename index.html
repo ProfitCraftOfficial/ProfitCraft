@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profit Craft Academy</title>
+  <style>
+    :root {
+      --dark-blue: #071937;
+      --white-blue: #eaf6ff;
+      --black: #000000;
+      --gray-dark: #0b0b0b;
+      --gray-border: #111;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+    body {
+      background: url("compute-ea4c57a4.jpeg") no-repeat center center fixed;
+      background-size: cover;
+      color: var(--white-blue);
+      line-height: 1.6;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    header {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 10%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 1000;
+    }
+    header .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    header .logo img {
+      height: 50px;
+      width: auto;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    nav .btn-telegram {
+      background: var(--white-blue);
+      color: var(--dark-blue);
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+    nav .btn-telegram:hover {
+      background: var(--dark-blue);
+      color: var(--white-blue);
+    }
+    .hero {
+      padding: 160px 10% 100px 10%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .hero .hero-content {
+      max-width: 600px;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    .hero p {
+      color: #c0c8d6;
+      margin-bottom: 30px;
+      font-size: 1.1rem;
+    }
+    .hero .hero-buttons {
+      display: flex;
+      gap: 15px;
+    }
+    .hero .hero-buttons .btn {
+      padding: 15px 30px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .hero .hero-buttons .btn-main {
+      background: var(--dark-blue);
+      color: var(--white-blue);
+    }
+    .hero .hero-buttons .btn-main:hover {
+      background: var(--white-blue);
+      color: var(--dark-blue);
+    }
+    .hero .hero-buttons .btn-alt {
+      background: var(--white-blue);
+      color: var(--dark-blue);
+    }
+    .hero .hero-buttons .btn-alt:hover {
+      background: var(--dark-blue);
+      color: var(--white-blue);
+    }
+    .hero .hero-image {
+      width: 500px;
+      height: 500px;
+      flex-shrink: 0;
+      margin-bottom: 70px;
+      margin-right: -100px;
+    }
+    .hero .hero-image img {
+      width: 100%;
+      border-radius: 12px;
+    }
+    .hero .hero-content span{
+      color: #005dfd;
+    }
+    section {
+      padding: 80px 10%;
+    }
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+      font-size: 2.5rem;
+    }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+    .card {
+      background: var(--gray-dark);
+      border: 1px solid var(--gray-border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.3s ease, background 0.3s ease;
+      position: relative;
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .card .card-body {
+      padding: 20px;
+    }
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 1.4rem;
+    }
+    .card p {
+      color: #bbb;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      background: var(--dark-blue);
+    }
+    .card:hover img {
+      transform: scale(1.05);
+    }
+    .card:hover h3,
+    .card:hover p {
+      color: var(--white-blue);
+    }
+#pricing {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .pricing-box {
+      background: var(--gray-dark);
+      border: 1px solid var(--gray-border);
+      padding: 60px 40px;
+      border-radius: 12px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1s ease;
+    }
+    .pricing-box.visible { opacity: 1; transform: translateY(0); }
+    .pricing-box h2 { font-size: 2rem; margin-bottom: 20px; }
+    .pricing-box p.price {
+      font-size: 2.5rem;
+      margin: 20px 0;
+      color: var(--white-blue);
+    }
+    .pricing-box .btn {
+      padding: 15px 30px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      background: var(--white-blue);
+      color: var(--dark-blue);
+    }
+    .pricing-box .btn:hover {
+      background: var(--dark-blue);
+      color: var(--white-blue);
+    }
+    .testimonials {
+      background: rgba(0, 0, 0, 0.7);
+      border-top: 1px solid var(--gray-border);
+      border-bottom: 1px solid var(--gray-border);
+    }
+    .testimonial-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+    }
+    .testimonial {
+      background: var(--gray-dark);
+      border-radius: 12px;
+      padding: 30px;
+      max-width: 320px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1s ease;
+    }
+    .testimonial.visible { opacity: 1; transform: translateY(0); }
+    .testimonial img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+      border: 2px solid var(--white-blue);
+    }
+    .testimonial h4 {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+    .testimonial p {
+      font-style: italic;
+      color: #c0c8d6;
+    }
+
+    .faq-item {
+      background: var(--gray-dark);
+      border: 1px solid var(--gray-border);
+      padding: 25px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .faq-item strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+    footer {
+      background: rgba(0,0,0,0.8);
+      padding: 40px 10%;
+      color: #999;
+      text-align: center;
+    }
+    footer a {
+      color: #bbb;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column-reverse;
+        align-items: center;
+        text-align: center;
+      }
+      .hero .hero-content {
+        max-width: 100%;
+      }
+      .hero .hero-image {
+        margin-bottom: 40px;
+      }
+      header {
+        padding: 15px 8%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="Profit Craft Academy Logo" />
+      <span style="font-size: 1.4rem; font-weight: bold;">Profit Craft Academy</span>
+    </div>
+    <nav>
+      <a href="#courses">Courses</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://t.me/EyL_HOWa_GM1OGI0" target="_blank" class="btn-telegram">Join Telegram</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Turn Zero Into <span>Real Online Income</span></h1>
+      <p>
+        Profit Craft Academy gives you step-by-step courses, community support, live calls, and weekly updates — delivered on Telegram to make access simple everywhere.
+      </p>
+      <div class="hero-buttons">
+          <a href="https://gumroad.com/checkout?product=kttra&option=pt7ZixZ2kuoztyOzuBeDcw%3D%3D&recurrence=monthly&quantity=1&referrer=https%3A%2F%2Fprofitcraft.my-online.store%2F&_gl=1*8reoa7*_ga*MTcwNDMwMDU3Mi4xNzYwNDI2NDE0*_ga_6LJN6D94N6*czE3NjA0MjY0MTMkbzEkZzEkdDE3NjA0MjcwMDIkajYwJGwwJGgw" target="_blank">
+        <button class="btn btn-main">Subscribe — $9.99 / month</button></a>
+        <a href="https://t.me/EyL_HOWa_GM1OGI0" target="_blank" class="btn btn-alt">Join Our Free Telegram</a>
+      </div>
+      <p style="margin-top:20px; color: #d0d8e6;">* We do **weekly course updates & live calls** with students. New lessons every week.</p>
+    </div>
+    <div class="hero-image">
+      <img src="logo.png" alt="Hero / Teaching Visual" />
+    </div>
+  </section>
+
+  <section id="courses">
+    <div class="section-title">Our Courses</div>
+    <div class="cards-grid">
+      <div class="card">
+        <img src="ECOM.png" alt="Ecom Domination Blueprint" />
+        <div class="card-body">
+          <h3>Ecom Domination Blueprint</h3>
+          <p>Launch and scale profitable eCommerce stores.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="AFFILIATE EMPIRE.png" alt="Affiliate Empire Blueprint" />
+        <div class="card-body">
+          <h3>Affiliate Empire Blueprint</h3>
+          <p>Build powerful affiliate funnels & systems.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="WEALTH VAULT.png" alt="Wealth Strategies Vault" />
+        <div class="card-body">
+          <h3>Wealth Strategies Vault</h3>
+          <p>Proven long-term income & investment methods.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="BRANDING.png" alt="Brand Authority Mastery" />
+        <div class="card-body">
+          <h3>Brand Authority Mastery</h3>
+          <p>Grow influence & market leadership online.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="SERVICE ARBITRAGE.png" alt="Service Arbitrage Mastery" />
+        <div class="card-body">
+          <h3>Service Arbitrage Mastery</h3>
+          <p>Offer high-margin services without doing the work.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="DIGITAL FREEDOM.png" alt="Digital Freedom Library" />
+        <div class="card-body">
+          <h3>Digital Freedom Library</h3>
+          <p>Templates, scripts, and digital assets.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="BUSINESS AUOTOMATION.png" alt="Advanced Business Automation" />
+        <div class="card-body">
+          <h3>Advanced Business Automation</h3>
+          <p>Automate your entire business process.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="section-title">Pricing</div>
+    <div class="pricing-box">
+      <h2>All-Access Membership</h2>
+      <p class="price">$9.99 <span style="font-size:1rem;">/ month</span></p>
+      <p>Get access to all courses + new lessons every week + live calls & updates.</p>
+      <a href="https://gumroad.com/checkout?product=kttra&option=pt7ZixZ2kuoztyOzuBeDcw%3D%3D&recurrence=monthly&quantity=1&_gl=1*sfm68x*_ga*MTcwNDMwMDU3Mi4xNzYwNDI2NDE0*_ga_6LJN6D94N6*czE3NjA0MjY0MTMkbzEkZzEkdDE3NjA0MjY0NTckajE2JGwwJGgw" target="_blank"><button class="btn">Join Now</button></a>
+      <p style="margin-top: 15px; color: #d0d8e6;">Price will increase soon — lock in your spot now!</p>
+    </div>
+  </section>
+
+  <section id="testimonials" class="testimonials">
+    <div class="section-title">What Our Students Say</div>
+    <div class="testimonial-grid">
+      <div class="testimonial">
+        <img src="test1.jpg" alt="Student 1">
+        <h4>Christopher M.</h4>
+        <p>"I started from zero and now I’m running my first online store! The weekly calls keep me accountable and motivated."</p>
+      </div>
+      <div class="testimonial">
+        <img src="test2.webp" alt="Student 2">
+        <h4>James R.</h4>
+        <p>"Profit Craft Academy completely changed how I view online income. The step-by-step blueprints are gold."</p>
+      </div>
+      <div class="testimonial">
+        <img src="test3.jpg" alt="Student 3">
+        <h4>Gabriel K.</h4>
+        <p>"The constant updates and new lessons each week keep everything fresh — worth every cent!"</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="section-title">FAQ</div>
+    <div class="faq-item">
+      <strong>How do I access the lessons?</strong>
+      <p>All course content, updates, and announcements are delivered via Telegram. Simple & accessible worldwide.</p>
+    </div>
+    <div class="faq-item">
+      <strong>Do you offer live calls or updates?</strong>
+      <p>Yes — we host **weekly live calls** with students and continuously add new lessons every week.</p>
+    </div>
+    <div class="faq-item">
+      <strong>Can I cancel anytime?</strong>
+      <p>Yes, the $9.99/month subscription can be canceled at any time.</p>
+    </div>
+    <div class="faq-item">
+      <strong>Is there a refund policy?</strong>
+      <p>We have a 7-day satisfaction guarantee — you can refund during that period.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Profit Craft Academy — All rights reserved</p>
+    <p><a href="https://t.me/EyL_HOWa_GM1OGI0" target="_blank">Join our Telegram</a></p>
+  </footer>
+
+  <script>
+    // Example: scroll smoothly when clicking nav links
+    document.querySelectorAll('nav a').forEach((link) => {
+      link.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href.startsWith('#')) {
+          e.preventDefault();
+          document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+    
+    // Smooth scroll
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', e => {
+        const href = link.getAttribute('href');
+        if (href.startsWith('#')) {
+          e.preventDefault();
+          document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Animate on scroll
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.hero, .section-title, .card, .pricing-box, .testimonial').forEach(el => observer.observe(el));
+  
+  </script>
+</body>
+</html>
